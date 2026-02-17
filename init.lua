@@ -164,6 +164,12 @@ vim.o.scrolloff = 10
 -- See `:help 'confirm'`
 vim.o.confirm = true
 
+-- Indentation: soft tabs (Tab key inserts spaces)
+vim.o.expandtab = true
+vim.o.tabstop = 4
+vim.o.shiftwidth = 4
+vim.o.softtabstop = 4
+
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
@@ -656,7 +662,14 @@ require('lazy').setup({
           })
         end,
         settings = {
-          Lua = {},
+          Lua = {
+            format = {
+              defaultConfig = {
+                indent_style = 'space',
+                indent_size = '2',
+              },
+            },
+          },
         },
       })
       vim.lsp.enable 'lua_ls'
@@ -698,6 +711,14 @@ require('lazy').setup({
         typescript = { 'prettier' },
         javascriptreact = { 'prettier' },
         typescriptreact = { 'prettier' },
+      },
+      formatters = {
+        stylua = {
+          prepend_args = { '--indent-type', 'Spaces', '--indent-width', '2' },
+        },
+        prettier = {
+          prepend_args = { '--no-use-tabs' },
+        },
       },
     },
   },
