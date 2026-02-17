@@ -5,6 +5,10 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       local lint = require 'lint'
+
+      -- PSR12 requires spaces; default phpcs standard requires tabs
+      lint.linters.phpcs.args = vim.list_extend({ '--standard=PSR12' }, lint.linters.phpcs.args)
+
       lint.linters_by_ft = {
         markdown = { 'markdownlint' },
         php = { 'phpcs' },
